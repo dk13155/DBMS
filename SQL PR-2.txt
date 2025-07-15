@@ -1,0 +1,153 @@
+Microsoft Windows [Version 10.0.19045.5247]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Program Files\MySQL\MySQL Server 9.3\bin>mysql -h localhost -u kunal -p
+Enter password: ********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 18
+Server version: 9.3.0 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use demo;
+Database changed
+mysql> create table student (Name varchar(50),DOB int ,Email-id varchar(30));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '-id varchar(30))' at line 1
+mysql> create table student (Name varchar(50),DOB int ,Email varchar(30));
+Query OK, 0 rows affected (0.357 sec)
+
+mysql> desc student;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| Name  | varchar(50) | YES  |     | NULL    |       |
+| DOB   | int         | YES  |     | NULL    |       |
+| Email | varchar(30) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.244 sec)
+
+mysql> alter table student add (Department varchar(10)):
+    -> alter table student add (Department varchar(10)):;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ':
+alter table student add (Department varchar(10)):' at line 1
+mysql> alter table student add (Department varchar(10));
+Query OK, 0 rows affected (0.756 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| Name       | varchar(50) | YES  |     | NULL    |       |
+| DOB        | int         | YES  |     | NULL    |       |
+| Email      | varchar(30) | YES  |     | NULL    |       |
+| Department | varchar(10) | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+4 rows in set (0.025 sec)
+
+mysql> alter table student add (primary key (studentid int));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'int))' at line 1
+mysql> alter table student add (primary key (studentid ));
+ERROR 1072 (42000): Key column 'studentid' doesn't exist in table
+mysql> alter table student add( studentid int);
+Query OK, 0 rows affected (0.621 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table student add (primary key (studentid ));
+Query OK, 0 rows affected (0.606 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| Name       | varchar(50) | YES  |     | NULL    |       |
+| DOB        | int         | YES  |     | NULL    |       |
+| Email      | varchar(30) | YES  |     | NULL    |       |
+| Department | varchar(10) | YES  |     | NULL    |       |
+| studentid  | int         | NO   | PRI | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+5 rows in set (0.021 sec)
+
+mysql> alter table modify Name char(90);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Name char(90)' at line 1
+mysql> alter table student modify( Name char(90));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '( Name char(90))' at line 1
+mysql> alter table student modify Name cahr(90);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'cahr(90)' at line 1
+mysql> alter table student modify Name char(90);
+Query OK, 0 rows affected (0.837 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| Name       | char(90)    | YES  |     | NULL    |       |
+| DOB        | int         | YES  |     | NULL    |       |
+| Email      | varchar(30) | YES  |     | NULL    |       |
+| Department | varchar(10) | YES  |     | NULL    |       |
+| studentid  | int         | NO   | PRI | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+5 rows in set (0.019 sec)
+
+mysql> alter table student drop Email;
+Query OK, 0 rows affected (0.602 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| Name       | char(90)    | YES  |     | NULL    |       |
+| DOB        | int         | YES  |     | NULL    |       |
+| Department | varchar(10) | YES  |     | NULL    |       |
+| studentid  | int         | NO   | PRI | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+4 rows in set (0.017 sec)
+
+mysql> create table course(courseid int ,coursename varchar(90));
+Query OK, 0 rows affected (0.324 sec)
+
+mysql> desc student;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| Name       | char(90)    | YES  |     | NULL    |       |
+| DOB        | int         | YES  |     | NULL    |       |
+| Department | varchar(10) | YES  |     | NULL    |       |
+| studentid  | int         | NO   | PRI | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+4 rows in set (0.024 sec)
+
+mysql> desc course
+    -> desc course;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'desc course' at line 2
+mysql> desc course;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| courseid   | int         | YES  |     | NULL    |       |
+| coursename | varchar(90) | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+2 rows in set (0.026 sec)
+
+mysql> alter table course add(primary key (courseid));
+Query OK, 0 rows affected (0.578 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc course;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| courseid   | int         | NO   | PRI | NULL    |       |
+| coursename | varchar(90) | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+2 rows in set (0.028 sec)
+
