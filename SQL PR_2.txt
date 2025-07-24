@@ -1,0 +1,213 @@
+Microsoft Windows [Version 10.0.19045.5247]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Program Files\MySQL\MySQL Server 9.3\bin>mysql -h localhost -u kunal -p
+Enter password: *******
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 14
+Server version: 9.3.0 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create database demo;
+Query OK, 1 row affected (0.171 sec)
+
+mysql> use demo;
+Database changed
+mysql> create table student (NAME varchar(20),DOB int,EMAILID varchar(19));
+Query OK, 0 rows affected (0.411 sec)
+
+mysql> desc student;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| NAME    | varchar(20) | YES  |     | NULL    |       |
+| DOB     | int         | YES  |     | NULL    |       |
+| EMAILID | varchar(19) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+3 rows in set (0.139 sec)
+
+mysql> alter table student add (DepartmentId varchar(10));
+Query OK, 0 rows affected (0.803 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| NAME         | varchar(20) | YES  |     | NULL    |       |
+| DOB          | int         | YES  |     | NULL    |       |
+| EMAILID      | varchar(19) | YES  |     | NULL    |       |
+| DepartmentId | varchar(10) | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+4 rows in set (0.027 sec)
+
+mysql> alter table student add (StudentID int primary key);
+Query OK, 0 rows affected (0.654 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| NAME         | varchar(20) | YES  |     | NULL    |       |
+| DOB          | int         | YES  |     | NULL    |       |
+| EMAILID      | varchar(19) | YES  |     | NULL    |       |
+| DepartmentId | varchar(10) | YES  |     | NULL    |       |
+| StudentID    | int         | NO   | PRI | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+5 rows in set (0.017 sec)
+
+mysql> alter table student add EMAILID default 'abc@gmail.com';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'default 'abc@gmail.com'' at line 1
+mysql> alter table student add( EMAILID default 'abc@gmail.com');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'default 'abc@gmail.com')' at line 1
+mysql> alter table student modify EMAILID varchar(19) DEFAULT 'abc@gmail.com';
+Query OK, 0 rows affected (1.234 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++--------------+-------------+------+-----+---------------+-------+
+| Field        | Type        | Null | Key | Default       | Extra |
++--------------+-------------+------+-----+---------------+-------+
+| NAME         | varchar(20) | YES  |     | NULL          |       |
+| DOB          | int         | YES  |     | NULL          |       |
+| EMAILID      | varchar(19) | YES  |     | abc@gmail.com |       |
+| DepartmentId | varchar(10) | YES  |     | NULL          |       |
+| StudentID    | int         | NO   | PRI | NULL          |       |
++--------------+-------------+------+-----+---------------+-------+
+5 rows in set (0.023 sec)
+
+mysql> alter table student add CONSTRAINT StudentId CHECK (StudentId>999);
+Query OK, 0 rows affected (0.777 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++--------------+-------------+------+-----+---------------+-------+
+| Field        | Type        | Null | Key | Default       | Extra |
++--------------+-------------+------+-----+---------------+-------+
+| NAME         | varchar(20) | YES  |     | NULL          |       |
+| DOB          | int         | YES  |     | NULL          |       |
+| EMAILID      | varchar(19) | YES  |     | abc@gmail.com |       |
+| DepartmentId | varchar(10) | YES  |     | NULL          |       |
+| StudentID    | int         | NO   | PRI | NULL          |       |
++--------------+-------------+------+-----+---------------+-------+
+5 rows in set (0.018 sec)
+
+mysql> alter table student modify DepartmentId varchar(10) NOTNULL;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'NOTNULL' at line 1
+mysql> alter table student modify DepartmentId varchar(10) NOT NULL;
+Query OK, 0 rows affected (1.217 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++--------------+-------------+------+-----+---------------+-------+
+| Field        | Type        | Null | Key | Default       | Extra |
++--------------+-------------+------+-----+---------------+-------+
+| NAME         | varchar(20) | YES  |     | NULL          |       |
+| DOB          | int         | YES  |     | NULL          |       |
+| EMAILID      | varchar(19) | YES  |     | abc@gmail.com |       |
+| DepartmentId | varchar(10) | NO   |     | NULL          |       |
+| StudentID    | int         | NO   | PRI | NULL          |       |
++--------------+-------------+------+-----+---------------+-------+
+5 rows in set (0.028 sec)
+
+mysql> alter table student add NAME char(30);
+ERROR 1060 (42S21): Duplicate column name 'NAME'
+mysql> alter table student modify NAME char(30);
+Query OK, 0 rows affected (0.680 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++--------------+-------------+------+-----+---------------+-------+
+| Field        | Type        | Null | Key | Default       | Extra |
++--------------+-------------+------+-----+---------------+-------+
+| NAME         | char(30)    | YES  |     | NULL          |       |
+| DOB          | int         | YES  |     | NULL          |       |
+| EMAILID      | varchar(19) | YES  |     | abc@gmail.com |       |
+| DepartmentId | varchar(10) | NO   |     | NULL          |       |
+| StudentID    | int         | NO   | PRI | NULL          |       |
++--------------+-------------+------+-----+---------------+-------+
+5 rows in set (0.014 sec)
+
+mysql> alter table student modify  NAME char(10) DEFAULT 'cse';
+Query OK, 0 rows affected (1.018 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> sesc student;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'sesc student' at line 1
+mysql> desc student;
++--------------+-------------+------+-----+---------------+-------+
+| Field        | Type        | Null | Key | Default       | Extra |
++--------------+-------------+------+-----+---------------+-------+
+| NAME         | char(10)    | YES  |     | cse           |       |
+| DOB          | int         | YES  |     | NULL          |       |
+| EMAILID      | varchar(19) | YES  |     | abc@gmail.com |       |
+| DepartmentId | varchar(10) | NO   |     | NULL          |       |
+| StudentID    | int         | NO   | PRI | NULL          |       |
++--------------+-------------+------+-----+---------------+-------+
+5 rows in set (0.016 sec)
+
+mysql> create table  enroll(ERNO int,CourseName varchar(10));
+Query OK, 0 rows affected (0.234 sec)
+
+mysql> desc student;
++--------------+-------------+------+-----+---------------+-------+
+| Field        | Type        | Null | Key | Default       | Extra |
++--------------+-------------+------+-----+---------------+-------+
+| NAME         | char(10)    | YES  |     | cse           |       |
+| DOB          | int         | YES  |     | NULL          |       |
+| EMAILID      | varchar(19) | YES  |     | abc@gmail.com |       |
+| DepartmentId | varchar(10) | NO   |     | NULL          |       |
+| StudentID    | int         | NO   | PRI | NULL          |       |
++--------------+-------------+------+-----+---------------+-------+
+5 rows in set (0.021 sec)
+
+mysql> desc enroll;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| ERNO       | int         | YES  |     | NULL    |       |
+| CourseName | varchar(10) | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+2 rows in set (0.039 sec)
+
+mysql> alter table enroll add(FOREIGN KEY (StudentId) REFERENCES student (StudentId));
+ERROR 1072 (42000): Key column 'StudentId' doesn't exist in table
+mysql> alter table enroll(StudentId int);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(StudentId int)' at line 1
+mysql> alter table enroll add (StudentId int);
+Query OK, 0 rows affected (0.529 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc enroll;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| ERNO       | int         | YES  |     | NULL    |       |
+| CourseName | varchar(10) | YES  |     | NULL    |       |
+| StudentId  | int         | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+3 rows in set (0.017 sec)
+
+mysql> alter table enroll add(FOREIGN KEY (StudentId) REFERENCES student (StudentId));
+Query OK, 0 rows affected (0.705 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc enroll;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| ERNO       | int         | YES  |     | NULL    |       |
+| CourseName | varchar(10) | YES  |     | NULL    |       |
+| StudentId  | int         | YES  | MUL | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+3 rows in set (0.019 sec)
+
+mysql>
